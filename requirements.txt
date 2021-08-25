@@ -1,0 +1,8 @@
+Django==2.0.5
+djangorestframework==3.8.2
+django-prometheus==2.0.0
+python-logstash==0.4.6
+numpy==1.14.3
+pandas==0.22.0
+redis==2.10.6
+uwsgi==2.0.17.1
