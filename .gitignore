@@ -10,7 +10,7 @@ dad-staging-deployment.sh
 *.log
 *.pot
 *.pyc
-cipher_config/settings/local.py
+config/settings/local.py
 __pycache__/
 local_settings.py
 db.sqlite3

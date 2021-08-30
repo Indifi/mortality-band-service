@@ -13,21 +13,21 @@ class CalculateMortalityBand:
 
     def __init__(self, data):
         self.data = data
+        self.mortality_band = None
 
     def calculate(self):
         """
         Fetch required data
         :return: All required data
         """
-        mortality_band = self.get_mortality_band()
-        return mortality_band
-
-    def get_mortality_band(self):
-        # Read pickle file
-        xgb_1 = pickle.load(open(
+        self.xgb_1 = pickle.load(open(
             os.path.dirname(os.path.abspath(__file__)) +
             "/../../../data_files/model_files/zomato_reviews.pickle.dat",
             "rb"))
+        self.mortality_band = self.get_mortality_band()
+        return self.mortality_band
+
+    def get_mortality_band(self):
 
         restInfo = self.data
         # Get reviews from data
@@ -36,7 +36,7 @@ class CalculateMortalityBand:
             reviews.loc[:, str(token)] = reviews['reviewText'].str.lower().str.count(str(token))
         # Predict sentiment score using model
         reviews['sentiment_score'] = [x[1] for x in
-                                      xgb_1.predict_proba(reviews[SENTIMENT_TOEKNS])]
+                                      self.xgb_1.predict_proba(reviews[SENTIMENT_TOEKNS])]
         # set sentiment score
         reviews.loc[:, 'sentiment_score'] = np.where(reviews["reviewText"] == "",
                                     EMPTY_SENTIMENT_SCORE, reviews['sentiment_score'])

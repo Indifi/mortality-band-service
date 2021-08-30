@@ -5,6 +5,7 @@ class ComputationBase:
     def __init__(self, data):
         self.data = data
         self.result = {}
+        self.mortality_band = None
 
     def compute(self):
         """
