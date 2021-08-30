@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI Emperor service
+
+[Service]
+ExecStartPre=/bin/bash -c 'mkdir -p /run/uwsgi; chown ubuntu:www-data /run/uwsgi' #make the folder where we'll store our socket file and have the right user/group permissions
+ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites #this the command to execute on start
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
