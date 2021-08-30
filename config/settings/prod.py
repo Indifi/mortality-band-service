@@ -23,7 +23,7 @@ logging.config.dictConfig({
         'logstash': {
           'level': 'WARNING',
           'class': 'logstash.TCPLogstashHandler',
-          'host': 'log-pipemortality_band_service',
+          'host': 'log-pipeline-service',
           'port': 5044,
           'version': 1,
           'message_type': 'logstash',

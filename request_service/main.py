@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
 from mortality_band_service.main import CalculateMortalityBandService
+from mortality_band_service.computation.validator import Validator
+
 from .constants import MORTALITY_BAND_SERVICE_RESPONSE_OBJ, MORTALITY_BAND_SERVICE_ERROR_OBJ, UNKNOWN_ERROR, \
     InvalidPayloadError
 
@@ -15,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 class MortalityBandService(APIView):
     """
-    View to handle all requests for our line service
+    View to handle all requests for our mortality band service
     """
     def post(self, request):
         """
@@ -27,6 +29,12 @@ class MortalityBandService(APIView):
         # Compute line
         try:
             payload = request.POST
+            # Validate data on post call
+            validate_obj = Validator(request.data)
+            validator_response = validate_obj.validate_mortality_band_request()
+            if not validator_response['success']:
+                raise InvalidPayloadError(validator_response['error'])
+            payload = validator_response['formatted_payload']
             executor = CalculateMortalityBandService(request.data)
             data = executor.execute()
             response_obj.update(success=True, data=data)

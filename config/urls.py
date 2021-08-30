@@ -1,4 +1,4 @@
-"""cipher_config URL Configuration
+"""mortality_band_service_config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -20,6 +20,5 @@ from django.urls import path
 
 urlpatterns = [
     path('', include('django_prometheus.urls')),
-    path('admin/', admin.site.urls),
-    path('mortality_band_service/', include('request_service.urls')),
+    path('mortality-band-service/', include('request_service.urls')),
 ]

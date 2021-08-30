@@ -1,20 +1,18 @@
-from .core.pre_fetch_vars import PreFetchData
+from .core.mortality_band import CalculateMortalityBand
 
 
 class ComputationBase:
     def __init__(self, data):
         self.data = data
         self.result = {}
-        self.term_loan_result = {}
-        self.loc_result = {}
 
     def compute(self):
         """
         Compute our new line
-        :return: Line service result
+        :return: Mortality Band service result
         """
-        # Pre fetch required data
-        self.mortality_band = PreFetchData(self.data).fetch()
+        # Calculate Mortality Band
+        self.mortality_band = CalculateMortalityBand(self.data).calculate()
         # Get final result
         self.get_final_result()
 

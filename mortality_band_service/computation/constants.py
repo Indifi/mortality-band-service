@@ -1,5 +1,3 @@
-from types import SimpleNamespace
-
 SENTIMENT_TOEKNS = ['delici',
                    'amaz',
                    'best',
@@ -63,3 +61,35 @@ SENTIMENT_TOEKNS = ['delici',
                    'servic',
                    'recommend'
                    ]
+
+EMPTY_SENTIMENT_SCORE = 0.13161
+
+MORTALITY_BAND_RANGE = [(0, 0.0493),
+                        (0.0493, 0.0599),
+                        (0.0599, 0.0704),
+                        (0.0704, 0.0829),
+                        (0.0829,0.0963),
+                        (0.0963, 0.1193),
+                        (0.1193, 0.1647),
+                        (0.1647, 0.1983),
+                        (0.1983,0.2315),
+                        (0.2315,1)]
+
+BOOL = 'bool'
+FLOAT = 'float'
+LIST = 'list'
+STRING = 'str'
+INT = 'int'
+BOOL_TRUE_STRINGS = ['true', '1']
+
+PAYLOAD_VARS = [
+    ('reviews', 'list'),
+    ('zomato_vintage', 'float'),
+    ('review_last_12m', 'int'),
+    ('restId', 'str'),
+]
+
+MISSING_PAYLOAD_DATA = 'Missing payload key - {}'
+NULL_PAYLOAD_DATA = 'Null payload key - {}'
+INVALID_PAYLOAD_DATA = 'Invalid payload data type for key - {}'
+

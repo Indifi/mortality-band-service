@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mortality_band_service
+  name: mortality-band-service
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: mortality_band_service
+        app: mortality-band-service
     spec:
       containers:
-      - name: mortality_band_service
+      - name: mortality-band-service
         image: IMAGE_NAME_TO_BE_REPLACED
         command: ["/bin/sh","-c"]
         args: ["uwsgi --emperor /etc/uwsgi/sites --daemonize /var/log/uwsgi/uwsgi.log; nginx -g 'daemon off;'"]
@@ -20,18 +20,18 @@ spec:
         - name: DJANGO_SETTINGS_MODULE
           value: SETTINGS_NAME_TO_BE_REPLACED
         ports:
-        - name: ms-line-port
+        - name: ms-mortality-band-port
           containerPort: 80
         livenessProbe:
           httpGet:
-            path: /mortality_band_service/health
-            port: ms-line-port
+            path: /mortality-band-service/health
+            port: ms-mortality-band-port
           initialDelaySeconds: 120
           timeoutSeconds: 180
         readinessProbe:
           httpGet:
-            path: /mortality_band_service/health
-            port: ms-line-port
+            path: /mortality-band-service/health
+            port: ms-mortality-band-port
           initialDelaySeconds: 120
           timeoutSeconds: 180
         resources:
@@ -45,13 +45,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ms-mortality_band_service
+  name: ms-mortality-band-service
 spec:
   ports:
   - name: http
     port: 80
-    targetPort: ms-line-port
+    targetPort: ms-mortality-band-port
     protocol: TCP
   selector:
-    app: mortality_band_service
+    app: mortality-band-service
   type: ClusterIP
