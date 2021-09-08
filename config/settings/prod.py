@@ -1,5 +1,7 @@
 from .base import *
 
+DEBUG = False
+
 prod_config = config['production']
 REDIS_HOST = prod_config["REDIS_HOST"]
 LOGGING_HANDLERS = ['console', 'logstash']
