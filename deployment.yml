@@ -20,18 +20,18 @@ spec:
         - name: DJANGO_SETTINGS_MODULE
           value: SETTINGS_NAME_TO_BE_REPLACED
         ports:
-        - name: ms-mortality-band-port
+        - name: ms-mb-port
           containerPort: 80
         livenessProbe:
           httpGet:
             path: /mortality-band-service/health
-            port: ms-mortality-band-port
+            port: ms-mb-port
           initialDelaySeconds: 120
           timeoutSeconds: 180
         readinessProbe:
           httpGet:
             path: /mortality-band-service/health
-            port: ms-mortality-band-port
+            port: ms-mb-port
           initialDelaySeconds: 120
           timeoutSeconds: 180
         resources:
@@ -50,7 +50,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: ms-mortality-band-port
+    targetPort: ms-mb-port
     protocol: TCP
   selector:
     app: mortality-band-service
