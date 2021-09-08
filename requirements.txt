@@ -6,3 +6,5 @@ numpy==1.14.3
 pandas==0.22.0
 redis==2.10.6
 uwsgi==2.0.17.1
+xgboost==0.90
+sklearn==0.0
