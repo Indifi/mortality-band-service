@@ -41,12 +41,12 @@ class CalculateMortalityBand:
                                     EMPTY_SENTIMENT_SCORE, reviews['sentiment_score'])
         sentiment_count = 0
         sentiment_sum = 0
-        #Count sentiment only for reviews within 6 months
+        # Count sentiment only for reviews within 6 months
         for i in range(len(reviews)):
-            if (reviews.loc[i, "reviewTimeInMonth"] <= 6):
+            if reviews.loc[i, "reviewTimeInMonth"] <= 6:
                 sentiment_count = sentiment_count + 1
                 sentiment_sum = sentiment_sum + reviews.loc[i, "sentiment_score"]
-        if (sentiment_count == 0):
+        if sentiment_count == 0:
             sentiment_count = sentiment_count + 1
         reviews.loc[:, "sentiment_sum"] = sentiment_sum
         reviews.loc[:, "sentiment_count"] = sentiment_count
@@ -54,14 +54,14 @@ class CalculateMortalityBand:
         reviews.loc[:, "zomato_vintage"] = restInfo["zomato_vintage"]
         reviews.loc[:, "rest_id"] = restInfo["restId"]
         avg_score = (sentiment_sum / sentiment_count)
-        if (sentiment_count <= 5):
+        if sentiment_count <= 5:
             avg_score = 1
-        #Calcualte mortality score acording to formula
+        # Calcualte mortality score acording to formula
         logit = -1.7483 - 0.0061 * restInfo["review_last_12m"] - 0.0136 * \
                 restInfo["zomato_vintage"] + 1.1298 * avg_score
         mortality_score = math.exp(logit) / (1 + math.exp(logit))
         reviews.loc[:, "mortality_score"] = mortality_score
-        #calculate band in which mortality score lies
+        # calculate band in which mortality score lies
         reviews.loc[:, 'band_10m'] = np.where(reviews["mortality_score"].between(MORTALITY_BAND_RANGE[0][0], MORTALITY_BAND_RANGE[0][1]),
                 "1",np.where(reviews["mortality_score"].between(MORTALITY_BAND_RANGE[1][0], MORTALITY_BAND_RANGE[1][1]),
                 "2", np.where(reviews["mortality_score"].between(MORTALITY_BAND_RANGE[2][0], MORTALITY_BAND_RANGE[2][1]),
