@@ -28,6 +28,7 @@ SECRET_KEY = 'p_i+p687x$*0ns8f2!$fe)h2mee_w39)tqymg(_8mkjfva3m80'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
 config = configparser.ConfigParser()
 
