@@ -12,6 +12,10 @@ class CalculateMortalityBand:
 
     def __init__(self, data):
         self.data = data
+        self.xgb_1 = pickle.load(open(
+            os.path.dirname(os.path.abspath(__file__)) +
+            "/../../../data_files/model_files/zomato_reviews.pickle.dat",
+            "rb"))
         self.mortality_band = None
 
     def calculate(self):
@@ -19,10 +23,6 @@ class CalculateMortalityBand:
         Fetch required data
         :return: All required data
         """
-        self.xgb_1 = pickle.load(open(
-            os.path.dirname(os.path.abspath(__file__)) +
-            "/../../../data_files/model_files/zomato_reviews.pickle.dat",
-            "rb"))
         self.mortality_band = self.get_mortality_band()
         return self.mortality_band
 
